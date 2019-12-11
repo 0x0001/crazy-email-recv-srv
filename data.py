@@ -5,9 +5,9 @@ import json
 
 class DataAccess:
     def __init__(self):
-        self.conn = sqlite3.connect(":memory:", check_same_thread=False);
+        self.conn = sqlite3.connect(":memory:", check_same_thread=False)
         c = self.conn.cursor()
-        c.execute("CREATE TABLE msg(frm TEXT, to0 TEXT, tos TEXT, subject TEXT, content TEXT,createDate timestamp)");
+        c.execute("CREATE TABLE msg(frm TEXT, to0 TEXT, tos TEXT, subject TEXT, content TEXT,createDate timestamp)")
         c.execute("CREATE INDEX index_frm ON msg (frm);")
         c.execute("CREATE INDEX index_to0 ON msg (to0);")
         self.conn.commit()
@@ -17,6 +17,11 @@ class DataAccess:
         c.execute("insert into msg values(?,?,?,?,?,?)",
                   (msg['from'], msg['to'][0], json.dumps(msg['to']), msg['subject'], msg['content'],
                    datetime.datetime.now()))
+        self.conn.commit()
+
+    def clean(self):
+        c = self.conn.cursor()
+        c.execute('delete from msg order by createDate desc limit 10, 1000')
         self.conn.commit()
 
     def read_from(self, frm):

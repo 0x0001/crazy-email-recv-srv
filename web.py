@@ -28,6 +28,12 @@ def msg_from(addr):
     return json.dumps(rows)
 
 
+@app.route('/clean')
+def clean():
+    dao.clean()
+    return json.dumps({"code": 200})
+
+
 @app.route('/to/<addr>')
 def msg_to(addr):
     rows = dao.read_to(addr)

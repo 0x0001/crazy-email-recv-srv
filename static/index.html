@@ -21,18 +21,11 @@
                     </div>
                     <button id="from_btn" type="submit" class="btn btn-success">Search</button>
 
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-
-
                     <div class="form-group">
                         <input id="to" class="form-control" type="text" placeholder="To">
                     </div>
                     <button id="to_btn" type="submit" class="btn btn-success">Search</button>
+                    <button id="clean" class="btn btn-primary">Clean</button>
                 </div>
 
             </div>
@@ -76,6 +69,9 @@
         <script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
         <script>
+            $('#clean').on('click', () => {
+                $.get('clean').then(() => window.location.reload());
+            });
 
             $.getJSON("all",function(data){
                 var $table = $('#table');
