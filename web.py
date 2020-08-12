@@ -19,7 +19,7 @@ def index():
 @app.route('/all')
 def msg_all():
     rows = dao.read_all()
-    return json.dumps(rows)
+    return json.dumps(rows, default=str)
 
 
 @app.route('/from/<addr>')
